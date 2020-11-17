@@ -98,7 +98,7 @@ def read_and_write():
 
     for address in input_file_reader:
         
-        time.sleep(2)
+        time.sleep(1)
         #Place Address in Street Address field
         street_address_input = driver.find_element_by_id("tAddress")
         street_address_input.send_keys(address[1])
@@ -115,7 +115,7 @@ def read_and_write():
         zip_code_input = driver.find_element_by_id('tZip-byaddress')
         zip_code_input.send_keys(address[4])
         
-        time.sleep(2)
+        time.sleep(1)
         
         #Click the "Find" button
         button = driver.find_element_by_id('zip-by-address')
@@ -152,7 +152,7 @@ def read_and_write():
         #write values to csv file
         output_file_writer.writerow(address_with_county)
         
-        time.sleep(2)
+        time.sleep(1)
         
         #Click link to enter new address
         look_up_another_address = driver.find_element_by_xpath('/html/body/div[3]/div/div[5]/div/div/div[7]/div/div[1]/a')
