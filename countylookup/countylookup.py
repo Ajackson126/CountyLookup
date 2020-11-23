@@ -90,6 +90,7 @@ def read_and_write():
         input_file_reader = csv.reader(address_input_file)
     except OSError:
         print("Input File Error")
+        time.sleep(7)
         sys.exit()
         
     try:    
@@ -97,6 +98,7 @@ def read_and_write():
         output_file_writer = csv.writer(county_output_file)
     except OSError:
         print("Output File Error")
+        time.sleep(7)
         sys.exit()
 
     for address in input_file_reader:
