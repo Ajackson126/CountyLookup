@@ -6,6 +6,9 @@
 #Imports 
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 import csv
 import time
 import sys
@@ -26,7 +29,7 @@ def cleanUp(input_file, output_file, driver):
 
     input_file.close()
     output_file.close()
-    driver.close()
+    driver.quit() # Using driver.quit() end all chrome processes
     sys.exit()
 
     
@@ -98,32 +101,36 @@ def read_and_write():
 
     for address in input_file_reader:
         
-        time.sleep(1)
+ 
         #Place Address in Street Address field
+        WebDriverWait(driver, timeout=3).until(EC.presence_of_element_located((By.ID, "tAddress")))
         street_address_input = driver.find_element_by_id("tAddress")
         street_address_input.send_keys(address[1])
         
         #Place city in City field
+        WebDriverWait(driver, timeout=3).until(EC.presence_of_element_located((By.ID, "tCity")))
         city_input = driver.find_element_by_id("tCity")
         city_input.send_keys(address[2])
         
         #Select State in drop down menu
+        WebDriverWait(driver, timeout=3).until(EC.presence_of_element_located((By.ID, "tState")))
         select = Select(driver.find_element_by_id('tState'))
         select.select_by_value(address[3])
         
         #Place zip code in ZIP Code field
+        WebDriverWait(driver, timeout=3).until(EC.presence_of_element_located((By.ID, "tZip-byaddress")))
         zip_code_input = driver.find_element_by_id('tZip-byaddress')
         zip_code_input.send_keys(address[4])
         
-        time.sleep(1)
         
         #Click the "Find" button
+        WebDriverWait(driver, timeout=3).until(EC.presence_of_element_located((By.ID, "zip-by-address")))
         button = driver.find_element_by_id('zip-by-address')
         button.click()
         
-        time.sleep(2)
         #try/except block to get around addresses that aren't found
         try:
+            WebDriverWait(driver, timeout=3).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[3]/div/div[5]/div/div/div[4]/div/div/ul/li")))
             container = driver.find_element_by_xpath('/html/body/div[3]/div/div[5]/div/div/div[4]/div/div/ul/li')
         except:
             address_temp = address
@@ -140,8 +147,8 @@ def read_and_write():
         #Show hidden elements    
         driver.execute_script("arguments[0].setAttribute('class','list-group-item paginate active')", container)
 
-        time.sleep(2)
         #Get county
+        WebDriverWait(driver, timeout=3).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[3]/div/div[5]/div/div/div[4]/div/div/ul/li/div[2]/div[1]/div[2]/div[2]/p")))
         county = driver.find_element_by_xpath('/html/body/div[3]/div/div[5]/div/div/div[4]/div/div/ul/li/div[2]/div[1]/div[2]/div[2]/p')
         county_text = county.text
         address_temp = address
