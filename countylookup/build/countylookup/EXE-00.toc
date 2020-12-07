@@ -34,7 +34,7 @@
  [],
  False,
  False,
- 1606106272,
+ 1606453218,
  [('run_d.exe',
    'c:\\users\\avery\\desktop\\countylookup\\countylookup\\env\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\run_d.exe',
    'EXECUTABLE')])

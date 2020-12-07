@@ -154,7 +154,8 @@ def read_and_write():
         county = driver.find_element_by_xpath('/html/body/div[3]/div/div[5]/div/div/div[4]/div/div/ul/li/div[2]/div[1]/div[2]/div[2]/p')
         county_text = county.text
         address_temp = address
-        address_temp.append(county_text)
+        state_temp = address[3]
+        address_temp.append(state_temp + "-" + county_text)
         address_with_county = address_temp
         print(address_with_county)
         
